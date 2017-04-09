@@ -9,6 +9,7 @@ import android.view.View;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
+import kr.o3selab.icling.models.Constants;
 import me.relex.circleindicator.CircleIndicator;
 
 public class LoadDataActivity extends AppCompatActivity {
@@ -23,12 +24,13 @@ public class LoadDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_data);
 
+        Constants.printLog("Start LoadData Activity");
+
         ButterKnife.bind(this);
 
         mViewPager.setAdapter(new LoadDataAdapter(getSupportFragmentManager(), 4));
         mViewPager.setOnTouchListener(onTouchListener);
         mCircleIndicator.setViewPager(mViewPager);
-
     }
 
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
