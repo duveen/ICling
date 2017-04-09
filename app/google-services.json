@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "18452903813",
+    "firebase_url": "https://icling-bbb1d.firebaseio.com",
+    "project_id": "icling-bbb1d",
+    "storage_bucket": "icling-bbb1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18452903813:android:1d76d7fecc84e1a6",
+        "android_client_info": {
+          "package_name": "kr.o3selab.icling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18452903813-jggoeh0g5h0j686j2cu6tnemgib6h2vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj1YRrk4bwVHopz83zjR5OB7QUbN1DzgU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
