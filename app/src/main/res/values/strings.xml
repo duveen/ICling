@@ -1,3 +1,31 @@
 <resources>
+
+    <string name="web_client_id">18452903813-jggoeh0g5h0j686j2cu6tnemgib6h2vq.apps.googleusercontent.com</string>
+
     <string name="app_name">ICling</string>
+
+    <string name="default_ok">확인</string>
+    <string name="default_next">다음</string>
+    <string name="default_cancel">취소</string>
+    <string name="default_start">시작하기</string>
+
+    <string name="intro_welcome_00">아이클링에 오신것을 환영합니다</string>
+    <string name="intro_welcome_01">서비스 이용에 필요한 정보를 입력해주세요!</string>
+    <string name="intro_welcome_02">로그인 방법을 선택해주세요</string>
+    <string name="intro_welcome_03">이제 모든 준비 절차가 끝났습니다</string>
+    <string name="intro_welcome_04">즐거운 아이클링의 세계에 빠져보세요!</string>
+
+    <string name="login_kakao">카카오로 로그인하기</string>
+    <string name="login_google">구글로 로그인하기</string>
+
+    <string name="user_height">키</string>
+    <string name="user_weight">몸무게</string>
+    <string name="user_sex">성별</string>
+    <string name="user_age">나이</string>
+
+    <string name="bike_radius">자전거 바퀴 반지름</string>
+
+
+
+
 </resources>

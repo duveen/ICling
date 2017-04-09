@@ -5,16 +5,20 @@
     android:id="@+id/activity_loading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_image"
     tools:context="kr.o3selab.icling.activities.LoadingActivity">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="45dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="50dp"
         app:indicatorName="BallSpinFadeLoaderIndicator"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/splash_image"
+        android:id="@+id/imageView"
+        android:scaleType="fitXY"/>
 
 </FrameLayout>

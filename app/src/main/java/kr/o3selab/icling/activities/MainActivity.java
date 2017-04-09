@@ -1,4 +1,4 @@
-package kr.o3selab.icling.Activity;
+package kr.o3selab.icling.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
