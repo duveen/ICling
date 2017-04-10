@@ -2,7 +2,6 @@ package kr.o3selab.icling.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
@@ -10,10 +9,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-/**
- * Created by O3SE Lab on 2017-04-03.
- */
 
 public class Constants {
 
@@ -24,17 +19,12 @@ public class Constants {
     // 사용자 정보
     public static User user;
 
-
     // Firebase Reference
     public static String KAKAO_USER = "User/Kakao/";
     public static String GOOGLE_USER = "User/Google/";
 
     // 설정정보
     private static String sData = "ICling.db";
-    public static String APP_FIRST_OPEN = "first_open";
-    public static String APP_UUID = "app_uuid";
-
-    public static String USER = "user";
 
     public static String USER_HEIGHT = "user_height";
     public static String USER_WEIGHT = "user_weight";
