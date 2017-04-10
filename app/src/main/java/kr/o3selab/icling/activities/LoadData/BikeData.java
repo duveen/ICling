@@ -1,4 +1,4 @@
-package kr.o3selab.icling.activities.LoadData;
+package kr.o3selab.icling.activities.loaddata;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

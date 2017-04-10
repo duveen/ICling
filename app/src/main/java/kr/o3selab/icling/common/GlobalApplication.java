@@ -2,8 +2,6 @@ package kr.o3selab.icling.common;
 
 import android.app.Application;
 
-import com.kakao.auth.KakaoSDK;
-
 public class GlobalApplication extends Application {
 
     private static volatile GlobalApplication instance = null;
@@ -18,8 +16,6 @@ public class GlobalApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
-        KakaoSDK.init(new KakaoSDKAdapter());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package kr.o3selab.icling.activities.LoadData;
+package kr.o3selab.icling.activities.loaddata;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -82,7 +82,10 @@ public class FinalData extends Fragment {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 pd.dismiss();
-                                startActivity(new Intent(getActivity(), MainActivity.class));
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                                 getActivity().finish();
                             }
                         })

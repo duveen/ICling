@@ -1,17 +1,19 @@
-package kr.o3selab.icling.activities.LoadData;
+package kr.o3selab.icling.activities.loaddata;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
+import kr.o3selab.icling.models.Constants;
 import me.relex.circleindicator.CircleIndicator;
 
-public class LoadDataActivity extends AppCompatActivity {
+public class LoadDataActivity extends FragmentActivity {
 
     @Bind(R.id.load_data_view_pager)
     ViewPager mViewPager;
@@ -22,13 +24,12 @@ public class LoadDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_data);
-
+        Constants.printLog("LoadDataActivity onCreate");
         ButterKnife.bind(this);
 
         mViewPager.setAdapter(new LoadDataAdapter(getSupportFragmentManager(), 4));
         mViewPager.setOnTouchListener(onTouchListener);
         mCircleIndicator.setViewPager(mViewPager);
-
     }
 
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
@@ -37,4 +38,10 @@ public class LoadDataActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

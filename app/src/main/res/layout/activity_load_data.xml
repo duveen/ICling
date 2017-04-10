@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="kr.o3selab.icling.activities.LoadData.LoadDataActivity">
+    tools:context="kr.o3selab.icling.activities.loaddata.LoadDataActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/load_data_view_pager"

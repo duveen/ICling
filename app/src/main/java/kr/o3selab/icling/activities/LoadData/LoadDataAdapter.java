@@ -1,4 +1,4 @@
-package kr.o3selab.icling.activities.LoadData;
+package kr.o3selab.icling.activities.loaddata;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
