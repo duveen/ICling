@@ -10,7 +10,7 @@ import android.view.View;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
-import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.utils.Debug;
 import me.relex.circleindicator.CircleIndicator;
 
 public class LoadDataActivity extends FragmentActivity {
@@ -24,7 +24,7 @@ public class LoadDataActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_data);
-        Constants.printLog("LoadDataActivity onCreate");
+        Debug.d("LoadDataActivity onCreate");
         ButterKnife.bind(this);
 
         mViewPager.setAdapter(new LoadDataAdapter(getSupportFragmentManager(), 4));

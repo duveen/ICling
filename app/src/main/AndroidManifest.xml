@@ -3,6 +3,9 @@
     package="kr.o3selab.icling">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <permission android:name="kr.o3selab.icling.permission.PROVIDER" android:protectionLevel="signature" />
 
     <application
         android:name=".common.GlobalApplication"
@@ -15,6 +18,7 @@
 
         <activity
             android:name=".activities.LoadingActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +35,24 @@
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.FullScreen" />
 
-    </application>
+        <activity android:name=".FileSendActivity"
+            android:label="File" >
+            <intent-filter>
+                <action android:name="kr.o3selab.icling.USERS" />
+            </intent-filter>
+        </activity>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="kr.o3selab.icling.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+
+        </provider>
+
+    </application>
 </manifest>

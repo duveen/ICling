@@ -16,6 +16,7 @@ public class User implements Serializable {
     public Integer mSex = null;
     public Integer mRadius = null;
     public Long mRegdate = null;
+    public String mUUID = null;
 
     public User() {
 

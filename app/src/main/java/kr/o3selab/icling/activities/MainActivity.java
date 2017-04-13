@@ -1,12 +1,11 @@
 package kr.o3selab.icling.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.google.firebase.auth.FirebaseAuth;
+import android.support.v7.app.AppCompatActivity;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.utils.Debug;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Constants.printLog("MainActivity onCreate");
-        Constants.printLog("User = " + Constants.user.toString());
+        Debug.d("MainActivity onCreate");
+        Debug.d("User = " + Constants.user.toString());
     }
 }

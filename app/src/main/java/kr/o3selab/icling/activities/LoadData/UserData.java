@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.R;
+import kr.o3selab.icling.models.Constants;
 
 public class UserData extends Fragment {
 

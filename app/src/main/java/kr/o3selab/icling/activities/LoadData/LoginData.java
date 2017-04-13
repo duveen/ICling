@@ -34,6 +34,7 @@ import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
 import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.models.User;
+import kr.o3selab.icling.utils.Debug;
 
 public class LoginData extends Fragment {
 
@@ -101,8 +102,6 @@ public class LoginData extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Constants.printLog("onActivityResult");
-
         // 구글 로그인
         if (requestCode == 9) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -143,7 +142,7 @@ public class LoginData extends Fragment {
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             pd.dismiss();
-                            Constants.printLog(databaseError.getMessage());
+                            Debug.d(databaseError.getMessage());
                         }
                     });
                 }
@@ -157,7 +156,7 @@ public class LoginData extends Fragment {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Constants.printLog("firebaseAuthWithGoogle:" + acct.getId());
+        Debug.d("FirebaseAuthWithGoogle:" + acct.getId());
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -166,7 +165,7 @@ public class LoginData extends Fragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Constants.printLog("signInWithCredential:onComplete:" + task.isSuccessful());
+                        Debug.d("SignInWithCredential:onComplete:" + task.isSuccessful());
                     }
                 });
     }

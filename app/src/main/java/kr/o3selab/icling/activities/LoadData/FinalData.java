@@ -20,7 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
 import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.models.LoginStatus;
 import kr.o3selab.icling.models.User;
+import kr.o3selab.icling.utils.Debug;
 
 public class FinalData extends Fragment {
 
@@ -85,16 +87,33 @@ public class FinalData extends Fragment {
                                 Intent intent = new Intent(getActivity(), MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                getActivity().finish();
+
+                                LoginStatus loginStatus = new LoginStatus(LoginStatus.LOGIN, Constants.user.mUserID);
+
+                                boolean returnValue = false;
+
+                                try {
+                                    returnValue = Constants.setConfigFile(loginStatus, getContext());
+                                } catch (Exception e) {
+                                    Toast.makeText(getActivity(), "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
+                                    getActivity().finish();
+                                }
+
+                                if (returnValue) {
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                } else {
+                                    Toast.makeText(getActivity(), "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
+                                    getActivity().finish();
+                                }
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 pd.dismiss();
-                                Toast.makeText(getContext(), "저장에 실패했습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_LONG).show();
-                                Constants.printLog(e);
+                                Toast.makeText(getContext(), "데이터 저장에 실패했습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                Debug.e(e.getMessage());
                             }
                         });
             }
