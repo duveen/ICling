@@ -44,13 +44,6 @@ public class UserData extends Fragment {
         mContainer = container;
         mView = inflater.inflate(R.layout.fragment_user_data, null);
 
-        return mView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         // 키
         mHeightEditText = (EditText) mView.findViewById(R.id.user_data_height_field);
 
@@ -68,6 +61,13 @@ public class UserData extends Fragment {
         // 다음 버튼
         View nextButton = mView.findViewById(R.id.user_data_next_button);
         nextButton.setOnClickListener(nextButtonListener);
+
+        return mView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         initalData();
     }

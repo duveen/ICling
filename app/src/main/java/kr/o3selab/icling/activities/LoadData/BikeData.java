@@ -32,13 +32,6 @@ public class BikeData extends Fragment {
         mContainer = container;
         mView = inflater.inflate(R.layout.fragment_bike_data, null);
 
-        return mView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         // 자전거 바퀴 반지름
         mRadiusEditText = (EditText) mView.findViewById(R.id.bike_data_radius);
 
@@ -46,6 +39,12 @@ public class BikeData extends Fragment {
         View nextButton = mView.findViewById(R.id.bike_data_next_button);
         nextButton.setOnClickListener(nextButtonListener);
 
+        return mView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         initalData();
     }
 

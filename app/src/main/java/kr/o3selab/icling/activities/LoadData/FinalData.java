@@ -19,8 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
+import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.models.Constants;
-import kr.o3selab.icling.models.LoginStatus;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.Debug;
 
@@ -60,12 +60,15 @@ public class FinalData extends Fragment {
             User user = Constants.user;
 
             SharedPreferences sharedPreferences = Constants.getSharedPreferences(getContext());
+
             user.mHeight = sharedPreferences.getInt(Constants.USER_HEIGHT, -1);
             user.mWeight = sharedPreferences.getInt(Constants.USER_WEIGHT, -1);
             user.mAge = sharedPreferences.getInt(Constants.USER_AGE, -1);
             user.mSex = sharedPreferences.getInt(Constants.USER_SEX, -1);
             user.mRadius = sharedPreferences.getInt(Constants.BIKE_RADIUS, -1);
             user.mRegdate = System.currentTimeMillis();
+            user.mUUID = GlobalApplication.getUUID();
+            user.mLoginStatus = true;
 
             Constants.user = user;
 
@@ -78,8 +81,8 @@ public class FinalData extends Fragment {
 
             if (reference != null) {
                 reference
-                        .child(String.valueOf(Constants.user.mUserID))
-                        .setValue(Constants.user)
+                        .child(String.valueOf(user.mUUID))
+                        .setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -88,24 +91,8 @@ public class FinalData extends Fragment {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                                LoginStatus loginStatus = new LoginStatus(LoginStatus.LOGIN, Constants.user.mUserID);
-
-                                boolean returnValue = false;
-
-                                try {
-                                    returnValue = Constants.setConfigFile(loginStatus, getContext());
-                                } catch (Exception e) {
-                                    Toast.makeText(getActivity(), "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
-                                    getActivity().finish();
-                                }
-
-                                if (returnValue) {
-                                    startActivity(intent);
-                                    getActivity().finish();
-                                } else {
-                                    Toast.makeText(getActivity(), "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
-                                    getActivity().finish();
-                                }
+                                startActivity(intent);
+                                getActivity().finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

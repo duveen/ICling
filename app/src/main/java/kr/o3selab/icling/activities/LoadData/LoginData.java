@@ -1,12 +1,14 @@
 package kr.o3selab.icling.activities.loaddata;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
+import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.Debug;
@@ -54,22 +57,12 @@ public class LoginData extends Fragment {
         mView = inflater.inflate(R.layout.fragment_login_data, null);
         mContainer = container;
 
-        return mView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         mViewPager = (ViewPager) mContainer.findViewById(R.id.load_data_view_pager);
 
         View googleLogin = mView.findViewById(R.id.login_google);
         googleLogin.setOnClickListener(googleLoginListener);
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        return mView;
     }
 
     View.OnClickListener googleLoginListener = new View.OnClickListener() {
@@ -115,23 +108,55 @@ public class LoginData extends Fragment {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
                 if (account != null) {
-                    final User user = new User(User.GOOGLE, account.getEmail());
-                    user.mUserID = account.getId();
-
-                    DatabaseReference userReference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + user.mUserID);
+                    final User user = new User(User.GOOGLE, account.getDisplayName(), account.getId(), account.getEmail());
+                    user.setUserProfileImage(account.getPhotoUrl().toString());
+                    final DatabaseReference userReference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + GlobalApplication.getUUID());
                     userReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            User dUser = dataSnapshot.getValue(User.class);
+                            final User dUser = dataSnapshot.getValue(User.class);
                             if (dUser != null) {
                                 pd.dismiss();
-                                Constants.user = dUser;
-                                Toast.makeText(getContext(), "이미 가입 된 아이디가 존재합니다. 가입 된 아이디로 실행합니다.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                getActivity().finish();
+
+                                if (!dUser.mUUID.equals(GlobalApplication.getUUID())) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("기존 가입한 기기와 실행한 기기가 다릅니다. 현재 기기로 기기를 변경하시겠습니까?");
+                                    builder.setCancelable(false);
+                                    builder.setPositiveButton(R.string.default_ok, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dUser.mUUID = GlobalApplication.getUUID();
+                                            userReference.setValue(dUser);
+
+                                            Constants.user = Constants.setLogin(dUser);
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                        }
+                                    });
+                                    builder.setNegativeButton(R.string.default_cancel, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(getActivity(), "아이클링은 한 개의 기기에서만 실행이 가능합니다. 프로그램을 종료합니다.", Toast.LENGTH_SHORT).show();
+                                            getActivity().finish();
+                                        }
+                                    });
+                                    builder.show();
+
+                                } else {
+                                    Constants.user = Constants.setLogin(dUser);
+                                    Toast.makeText(getContext(), "이미 가입 된 아이디가 존재합니다. 가입 된 아이디로 실행합니다.", Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+
+
                             } else {
                                 pd.dismiss();
                                 Constants.user = user;

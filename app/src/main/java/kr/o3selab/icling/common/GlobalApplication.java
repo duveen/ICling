@@ -25,7 +25,7 @@ public class GlobalApplication extends Application {
         uuid = sharedPreferences.getString(Constants.uuid, null);
 
         if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
+            uuid = Constants.getDeviceUUID(getGlobalApplicationContext());
             SharedPreferences.Editor editor = Constants.getEditor(getGlobalApplicationContext());
             editor.putString(Constants.uuid, uuid);
             editor.commit();

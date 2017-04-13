@@ -1,7 +1,6 @@
 package kr.o3selab.icling.activities;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -9,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.widget.Toast;
@@ -32,7 +30,6 @@ import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.loaddata.LoadDataActivity;
 import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.models.Constants;
-import kr.o3selab.icling.models.LoginStatus;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.Debug;
 
@@ -51,7 +48,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         mPreferences = Constants.getSharedPreferences(this);
         mAuth = FirebaseAuth.getInstance();
-
+        mAuth.signOut();
 
         new TedPermission(this)
                 .setPermissionListener(permissionListener)
@@ -90,101 +87,53 @@ public class LoadingActivity extends AppCompatActivity {
                     for (UserInfo info : user.getProviderData()) {
                         if (!info.getProviderId().contains("google.com")) continue;
 
-                        String uID = info.getUid();
-                        final LoginStatus loginStatus = new LoginStatus(LoginStatus.LOGIN, uID);
-
-                        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + uID);
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                final User user = dataSnapshot.getValue(User.class);
-                                if (user != null && user.mUUID.equals(GlobalApplication.getUUID())) {
-
-                                    boolean returnValue = false;
-
-                                    try {
-                                        returnValue = Constants.setConfigFile(loginStatus, LoadingActivity.this);
-                                    } catch (Exception e) {
-                                        Toast.makeText(LoadingActivity.this, e.getMessage() + "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
-                                        LoadingActivity.this.finish();
-                                    }
-
-                                    if (returnValue) {
-                                        Constants.user = user;
-                                        startActivity(new Intent(LoadingActivity.this, MainActivity.class));
-                                        LoadingActivity.this.finish();
-                                    } else {
-                                        Toast.makeText(LoadingActivity.this, "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
-                                        LoadingActivity.this.finish();
-                                    }
-
-                                } else if (user == null) {
-                                    startActivity(new Intent(LoadingActivity.this, LoadDataActivity.class));
-                                    LoadingActivity.this.finish();
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoadingActivity.this);
-                                    builder.setTitle("알림");
-                                    builder.setMessage("기존 가입한 기기와 다릅니다. 현재 기기로 기기를 변경하시겠습니까?");
-                                    builder.setCancelable(false);
-                                    builder.setPositiveButton(R.string.default_ok, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            user.mUUID = GlobalApplication.getUUID();
-                                            reference.setValue(user);
-
-                                            boolean returnValue = false;
-
-                                            try {
-                                                returnValue = Constants.setConfigFile(loginStatus, LoadingActivity.this);
-                                            } catch (Exception e) {
-                                                Toast.makeText(LoadingActivity.this, e.getMessage() + "\n데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
-                                                LoadingActivity.this.finish();
-                                            }
-
-                                            if (returnValue) {
-                                                Constants.user = user;
-                                                startActivity(new Intent(LoadingActivity.this, MainActivity.class));
-                                                LoadingActivity.this.finish();
-                                            } else {
-                                                Toast.makeText(LoadingActivity.this, "데이터 저장에 실패했습니다. 프로그램을 다시 실행시켜주세요.", Toast.LENGTH_SHORT).show();
-                                                LoadingActivity.this.finish();
-                                            }
-                                        }
-                                    });
-                                    builder.setNegativeButton(R.string.default_cancel, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Toast.makeText(LoadingActivity.this, "아이클링은 한 개의 기기에서만 실행이 가능합니다. 프로그램을 종료합니다.", Toast.LENGTH_SHORT).show();
-                                            LoadingActivity.this.finish();
-                                        }
-                                    });
-                                    builder.show();
+                        String uuid = GlobalApplication.getUUID();
+                        if (uuid != null) {
+                            final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + uuid);
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    User user = dataSnapshot.getValue(User.class);
+                                    User.checkUserDevice(LoadingActivity.this, user, reference);
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Toast.makeText(LoadingActivity.this, "서버 연결 오류 입니다. 프로그램을 종료합니다.", Toast.LENGTH_LONG).show();
+                                    LoadingActivity.this.finish();
+                                }
+                            });
+                        }
                     }
                 }
             } else {
                 Debug.d("LoginStatus:logout");
 
+                final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + GlobalApplication.getUUID());
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        if (user != null) {
+                            user.mLoginStatus = false;
+                            databaseReference.setValue(user);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            Constants.setConfigFile(new LoginStatus(LoginStatus.LOGOUT, null), LoadingActivity.this);
-                        } catch (Exception ignored) {
-
+                            LoadingActivity.this.finish();
                         }
 
                         startActivity(new Intent(LoadingActivity.this, LoadDataActivity.class));

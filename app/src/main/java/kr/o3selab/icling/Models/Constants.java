@@ -1,19 +1,11 @@
 package kr.o3selab.icling.models;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Environment;
-import android.support.v4.content.FileProvider;
+import android.provider.Settings;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-import kr.o3selab.icling.utils.Debug;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Constants {
 
@@ -49,38 +41,26 @@ public class Constants {
     }
 
 
-    // 장비제어
-    public static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
+    // 로그인 제어
+    public static User setLogin(User user) {
+        user.mLoginStatus = true;
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User/" + user.mLoginType + "/" + user.mUUID);
+        databaseReference.setValue(user);
+
+        return user;
     }
 
-    // 파일제어
-    public static boolean setConfigFile(LoginStatus status, Context context) throws IOException {
-        if (isExternalStorageWritable()) {
-            File root = new File(Environment.getExternalStorageDirectory(), "users");
-            if (!root.exists()) root.mkdirs();
-            File config = new File(root, "Config.db");
-            Debug.d(config.getAbsolutePath());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(status);
-            byte[] data = baos.toByteArray();
+    public static void setLogout(User user) {
+        user.mLoginStatus = false;
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User/" + user.mLoginType + "/" + user.mUUID);
+        databaseReference.setValue(user);
+    }
 
-            FileOutputStream fos = new FileOutputStream(config);
-            fos.write(data);
-            fos.close();
-
-            Uri uri = FileProvider.getUriForFile(context, "kr.o3selab.icling.provider", config);
-            context.grantUriPermission("kr.o3selab.icling.provider", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            Debug.d("Completed Save Login Status File");
-
-            return true;
-        } else {
-            Debug.d("Failed Save Login Status File");
-            return false;
+    public static String getDeviceUUID(final Context context) {
+        try {
+            return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+            return null;
         }
     }
-
 }
