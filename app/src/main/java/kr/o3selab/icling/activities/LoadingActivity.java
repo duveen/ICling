@@ -46,9 +46,13 @@ public class LoadingActivity extends AppCompatActivity {
 
         Debug.d("LoadingActivity onCreate");
 
+        if (GlobalApplication.getUUID() == null) {
+            Toast.makeText(this, "프로그램을 실행할 수 없습니다. 프로그램을 종료합니다.", Toast.LENGTH_SHORT).show();
+            LoadingActivity.this.finish();
+        }
+
         mPreferences = Constants.getSharedPreferences(this);
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
 
         new TedPermission(this)
                 .setPermissionListener(permissionListener)

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home"
+        title="메인" />
+    <tab
+        id="@+id/tab_record"
+        icon="@drawable/ic_record"
+        title="주행기록" />
+    <tab
+        id="@+id/tab_analytics"
+        icon="@drawable/ic_analytics"
+        title="주행분석" />
+    <tab
+        id="@+id/tab_setting"
+        icon="@drawable/ic_settings"
+        title="설정" />
+</tabs>

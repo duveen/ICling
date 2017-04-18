@@ -2,7 +2,8 @@ package kr.o3selab.icling.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -56,11 +57,18 @@ public class Constants {
         databaseReference.setValue(user);
     }
 
-    public static String getDeviceUUID(final Context context) {
-        try {
-            return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        } catch (Exception e) {
-            return null;
-        }
+
+    // 픽셀 DP 제어
+    public static int PixelToDp(Context context, int pixel) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        float dp = pixel / (metrics.densityDpi / 160f);
+        return (int) dp;
     }
+
+    public static int DpToPixel(Context context, int DP) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DP, context.getResources().getDisplayMetrics());
+        return (int) px;
+    }
+
+
 }

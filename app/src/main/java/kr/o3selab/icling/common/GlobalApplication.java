@@ -2,8 +2,7 @@ package kr.o3selab.icling.common;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-
-import java.util.UUID;
+import android.provider.Settings;
 
 import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.utils.Debug;
@@ -20,13 +19,12 @@ public class GlobalApplication extends Application {
     }
 
     public static String getUUID() {
-
         SharedPreferences sharedPreferences = Constants.getSharedPreferences(getGlobalApplicationContext());
         uuid = sharedPreferences.getString(Constants.uuid, null);
 
         if (uuid == null) {
-            uuid = Constants.getDeviceUUID(getGlobalApplicationContext());
-            SharedPreferences.Editor editor = Constants.getEditor(getGlobalApplicationContext());
+            uuid = Settings.Secure.getString(instance.getContentResolver(), Settings.Secure.ANDROID_ID);
+            SharedPreferences.Editor editor = Constants.getEditor(instance);
             editor.putString(Constants.uuid, uuid);
             editor.commit();
         }
