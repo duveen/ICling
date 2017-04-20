@@ -12,6 +12,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 
 import java.util.ArrayList;
 
@@ -36,8 +37,15 @@ public class KcalFragment extends Fragment {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setRotationEnabled(false);
 
-        pieChart.setHoleRadius(95.0f);
+        pieChart.setHoleRadius(92.0f);
         pieChart.setHoleColor(Color.TRANSPARENT);
+
+        pieChart.getLegend().setEnabled(false);
+
+        pieChart.setUsePercentValues(!pieChart.isUsePercentValuesEnabled());
+        for (IDataSet<?> set : pieChart.getData().getDataSets())
+            set.setDrawValues(!set.isDrawValuesEnabled());
+
 
         pieChart.invalidate();
 

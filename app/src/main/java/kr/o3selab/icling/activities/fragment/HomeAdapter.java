@@ -9,10 +9,6 @@ import kr.o3selab.icling.activities.loaddata.FinalData;
 import kr.o3selab.icling.activities.loaddata.LoginData;
 import kr.o3selab.icling.activities.loaddata.UserData;
 
-/**
- * Created by O3SE Lab on 2017-04-18.
- */
-
 public class HomeAdapter extends FragmentStatePagerAdapter {
 
     int mNumbOfTabs;

@@ -17,7 +17,10 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
+import kr.o3selab.icling.activities.fragment.AnalyticsFragment;
 import kr.o3selab.icling.activities.fragment.HomeFragment;
+import kr.o3selab.icling.activities.fragment.RecordFragment;
+import kr.o3selab.icling.activities.fragment.SettingFragment;
 import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.utils.Debug;
 
@@ -59,17 +62,26 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
                 HomeFragment homeFragment = new HomeFragment();
                 homeFragment.setActivity(this);
                 addFragment(homeFragment);
-                break;
+                return;
 
             case R.id.tab_record:
-                break;
+                RecordFragment recordFragment = new RecordFragment();
+                recordFragment.setActivity(this);
+                addFragment(recordFragment);
+                return;
 
             case R.id.tab_analytics:
-                break;
+                AnalyticsFragment analyticsFragment = new AnalyticsFragment();
+                analyticsFragment.setActivity(this);
+                addFragment(analyticsFragment);
+                return;
 
             case R.id.tab_setting:
-                break;
+                SettingFragment settingFragment = new SettingFragment();
+                settingFragment.setActivity(this);
+                addFragment(settingFragment);
         }
+
     }
 
     public void addFragment(Fragment newFragment) {
