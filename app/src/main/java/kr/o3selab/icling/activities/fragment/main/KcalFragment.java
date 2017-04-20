@@ -1,9 +1,8 @@
-package kr.o3selab.icling.activities.fragment;
+package kr.o3selab.icling.activities.fragment.main;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,9 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import java.util.ArrayList;
 
 import kr.o3selab.icling.R;
+import kr.o3selab.icling.activities.fragment.BaseFragment;
 
-public class KcalFragment extends Fragment {
-
-    public KcalFragment() {
-
-    }
+public class KcalFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

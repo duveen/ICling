@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.utils.Debug;
@@ -15,9 +15,9 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class LoadDataActivity extends FragmentActivity {
 
-    @Bind(R.id.load_data_view_pager)
+    @BindView(R.id.load_data_view_pager)
     ViewPager mViewPager;
-    @Bind(R.id.load_data_indicator)
+    @BindView(R.id.load_data_indicator)
     CircleIndicator mCircleIndicator;
 
     @Override

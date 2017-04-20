@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import kr.o3selab.icling.R;
 import me.relex.circleindicator.CircleIndicator;
 
+
+
 public class HomeFragment extends BaseFragment {
 
     @Override

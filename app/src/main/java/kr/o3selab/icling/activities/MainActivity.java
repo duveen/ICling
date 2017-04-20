@@ -2,10 +2,10 @@ package kr.o3selab.icling.activities;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -14,10 +14,11 @@ import android.widget.TextView;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.fragment.AnalyticsFragment;
+import kr.o3selab.icling.activities.fragment.BaseFragment;
 import kr.o3selab.icling.activities.fragment.HomeFragment;
 import kr.o3selab.icling.activities.fragment.RecordFragment;
 import kr.o3selab.icling.activities.fragment.SettingFragment;
@@ -26,12 +27,14 @@ import kr.o3selab.icling.utils.Debug;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
 
-    @Bind(R.id.main_top_bar)
+    @BindView(R.id.main_top_bar)
     FrameLayout mTopBar;
-    @Bind(R.id.main_title)
+    @BindView(R.id.main_back_button)
+    View mBackButton;
+    @BindView(R.id.main_title)
     TextView mMainTitle;
 
-    @Bind(R.id.main_bottom_bar)
+    @BindView(R.id.main_bottom_bar)
     BottomBar mBottomBar;
 
     /*@Bind(R.id.main_chart)
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
     @Override
     public void onTabSelected(@IdRes int tabId) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() == 1) onBackPressed();
 
         switch (tabId) {
             case R.id.tab_home:
@@ -84,17 +90,28 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
     }
 
-    public void addFragment(Fragment newFragment) {
+    public void addFragment(BaseFragment newFragment) {
+        addFragment(newFragment, false);
+    }
+
+    public void addFragment(BaseFragment newFragment, boolean isAdd) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (fragmentManager.getFragments() != null) {
+        if (isAdd) {
+            transaction.replace(R.id.main_container, newFragment, newFragment.TAG).addToBackStack(null);
+        } else if (fragmentManager.getFragments() != null) {
             transaction.replace(R.id.main_container, newFragment);
         } else {
             transaction.add(R.id.main_container, newFragment);
         }
 
         transaction.commit();
+    }
+
+    public void removeFragment() {
+        onBackPressed();
     }
 
     public int getStatusBarHeight() {
@@ -109,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     @Override
     public void setTitle(CharSequence title) {
         mMainTitle.setText(title);
+    }
+
+    public View getBackButton() {
+        return mBackButton;
     }
 
     /*public void initDataGraph() {

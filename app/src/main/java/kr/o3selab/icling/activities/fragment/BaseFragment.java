@@ -6,6 +6,8 @@ import kr.o3selab.icling.activities.MainActivity;
 
 public abstract class BaseFragment extends Fragment {
 
+    public String TAG;
+
     public MainActivity activity = null;
 
     public void setActivity(MainActivity activity) {
