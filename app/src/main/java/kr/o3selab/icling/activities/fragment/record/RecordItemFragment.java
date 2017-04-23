@@ -19,7 +19,7 @@ public class RecordItemFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_record_item, null);
         TAG = "RecordItemFragment";
 
-        RidingData ridingData = (RidingData) savedInstanceState.getSerializable("item");
+        RidingData ridingData = (RidingData) getArguments().getSerializable("item");
 
         return view;
     }

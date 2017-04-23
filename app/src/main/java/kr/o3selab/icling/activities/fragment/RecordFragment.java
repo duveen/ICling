@@ -24,7 +24,7 @@ public class RecordFragment extends BaseFragment {
                 RecordItemFragment fragment = new RecordItemFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("item", new RidingData());
-
+                fragment.setArguments(bundle);
                 fragment.setActivity(activity);
                 activity.addFragment(fragment, true);
             }
