@@ -2,33 +2,64 @@ package kr.o3selab.icling.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class RidingData implements Serializable {
 
-    public Long mRegdate = System.currentTimeMillis();
+    public Long mStartRegdate;
+    public Long mFinishRegdate;
+
     public Float mTotalDistance;
     public Float mAverageSpeed;
     public Float mMaxSpeed;
-    public ArrayList<Float> mDetailSpeed;
 
-    public Float mAverageHeartbeat;
+    public ArrayList<Float> mDetailSpeed;
+    public Float mAverageHeartRate;
+    public Float mTotalHeartRate;
+    public int mKcal;
 
     public RidingData() {
+        mStartRegdate = System.currentTimeMillis();
         mTotalDistance = 0.0f;
         mAverageSpeed = 0.0f;
         mMaxSpeed = 0.0f;
         mDetailSpeed = new ArrayList<>();
 
-        Random r = new Random();
+        mAverageHeartRate = 0.0f;
+        mTotalHeartRate = 0.0f;
+    }
+
+    public void addData(String speed, String distance) {
+        mDetailSpeed.add(Float.valueOf(speed));
+        mTotalDistance += Float.valueOf(distance);
+    }
+
+    public void addData(String speed, String distance, String heartrate) {
+        addData(speed, distance);
+        mTotalHeartRate += Float.valueOf(heartrate);
+    }
+
+    public void finishRiding(String weight) {
+        mFinishRegdate = System.currentTimeMillis();
+
+        int dataSize = mDetailSpeed.size();
+
+        // 최대 속도 / 평균속도 계산
         Float totalSpeed = 0.0f;
-        for (int i = 0; i < 10; i++) {
-            Float speed = (float) (10 * i + r.nextInt(10));
-            totalSpeed += speed;
-            if (speed > mMaxSpeed) mMaxSpeed = speed;
-            mDetailSpeed.add(speed);
+        for (Float val : mDetailSpeed) {
+            if (mMaxSpeed < val) mMaxSpeed = val;
+            totalSpeed += val;
         }
 
-        mAverageSpeed = totalSpeed / 100;
+        mAverageSpeed = totalSpeed / dataSize;
+        mAverageHeartRate = mTotalHeartRate / dataSize;
+
+
+    }
+
+    public int getKcalCoefficient(Float aSpeed) {
+
+        return 0;
+
+
     }
 }

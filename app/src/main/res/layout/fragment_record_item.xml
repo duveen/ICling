@@ -145,10 +145,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_timer"
+                    android:src="@drawable/ic_timer_d"
                     android:tint="@color/font_gray" />
 
                 <LinearLayout
@@ -184,10 +185,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_record"
+                    android:src="@drawable/ic_distance_d"
                     android:tint="@color/font_gray" />
 
                 <LinearLayout
@@ -238,10 +240,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_timer"
+                    android:src="@drawable/ic_kcal_d"
                     android:tint="@color/font_gray" />
 
                 <LinearLayout
@@ -254,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="00:00:00"
+                        android:text="256 kcal"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -262,7 +265,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="주행 시간"
+                        android:text="소모 칼로리"
                         android:textColor="@color/font_gray"
                         android:textSize="12sp" />
 
@@ -277,10 +280,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_timer"
+                    android:src="@drawable/ic_speed_d"
                     android:tint="@color/font_gray" />
 
                 <LinearLayout
@@ -293,7 +297,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="00:00:00"
+                        android:text="12 km/h"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -301,7 +305,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="주행 시간"
+                        android:text="평균 속도"
                         android:textColor="@color/font_gray"
                         android:textSize="12sp" />
 
@@ -316,10 +320,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_timer"
+                    android:src="@drawable/ic_pace_d"
                     android:tint="@color/font_gray" />
 
                 <LinearLayout
@@ -332,7 +337,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="00:00:00"
+                        android:text="00'00&quot; /km"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -340,7 +345,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="주행 시간"
+                        android:text="평균 페이스"
                         android:textColor="@color/font_gray"
                         android:textSize="12sp" />
 
