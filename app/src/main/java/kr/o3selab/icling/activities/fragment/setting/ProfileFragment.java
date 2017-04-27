@@ -57,6 +57,7 @@ public class ProfileFragment extends BaseFragment {
                 activity.removeFragment();
             }
         });
+        activity.setTitle("프로필");
     }
 }
 

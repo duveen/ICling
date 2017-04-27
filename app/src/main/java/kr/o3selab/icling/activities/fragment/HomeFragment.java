@@ -17,7 +17,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
-        // activity.setTitle("Home");
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.content_main_view_pager);
         viewPager.setAdapter(new HomeAdapter(getFragmentManager(), 3));
@@ -28,4 +27,10 @@ public class HomeFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        activity.setTitle("HOME");
+    }
 }

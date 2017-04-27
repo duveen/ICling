@@ -38,14 +38,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-22"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="4:00 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -59,7 +59,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:00:47"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -73,7 +73,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="0.23"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="8:23 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -130,7 +130,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:00:11"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -144,7 +144,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="0.35"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -187,7 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="6:21 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -201,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:12:15"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -215,7 +215,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="3.76"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -251,14 +251,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-20"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="9:54 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -272,7 +272,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:07:39"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -286,7 +286,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="0.99"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -322,14 +322,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-18"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="9:15 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -343,7 +343,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:08:04"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -357,7 +357,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="0.89"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -393,14 +393,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-17"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="11:28 AM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -414,7 +414,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:12:26"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -428,7 +428,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="2.42"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -464,14 +464,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-16"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="11:25 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -485,7 +485,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:12:11"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -499,7 +499,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="3.09"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -535,14 +535,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-16"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="10:19 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -556,7 +556,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:05:02"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -570,7 +570,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="1.46"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -606,14 +606,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-15"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="1:48 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -627,7 +627,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:08:23"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -641,7 +641,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="2.12"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -677,14 +677,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-04-21"
+                        android:text="2017-04-14"
                         android:textColor="@color/font_gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="6:18 PM"
+                        android:text="3:09 PM"
                         android:textColor="@color/font_gray" />
 
                 </FrameLayout>
@@ -698,7 +698,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:00:00"
+                        android:text="00:01:02"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -712,7 +712,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.96"
+                        android:text="0.21"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 

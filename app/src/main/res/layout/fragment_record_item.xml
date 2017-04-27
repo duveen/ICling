@@ -31,7 +31,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+<!--                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10"
@@ -43,12 +43,12 @@
                     android:layout_height="wrap_content"
                     android:text=" min  "
                     android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:textSize="25sp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="53"
+                    android:text="47"
                     android:textColor="@color/white"
                     android:textSize="35sp" />
 
@@ -71,7 +71,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.84"
+                    android:text="0.26"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
@@ -85,7 +85,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4.6"
+                    android:text="20.2"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
@@ -98,22 +98,12 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Speed"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <FrameLayout
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/record_item_chart"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white">
-
-            </FrameLayout>
+                android:layout_marginTop="30dp"
+                android:layout_gravity="bottom" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="00:00:00"
+                        android:text="00:00:47"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -207,7 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="0.84"
+                            android:text="0.26"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -257,7 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="256 kcal"
+                        android:text="6 kcal"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -297,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="12 km/h"
+                        android:text="20.2 km/h"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -337,7 +327,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="00'00&quot; /km"
+                        android:text="03'01&quot; /km"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
