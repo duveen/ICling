@@ -1,7 +1,7 @@
 package kr.o3selab.icling.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RidingData implements Serializable {
 
@@ -12,29 +12,28 @@ public class RidingData implements Serializable {
     public Float mAverageSpeed;
     public Float mMaxSpeed;
 
-    public ArrayList<Float> mDetailSpeed;
+    public HashMap<Long, Float> mDetailSpeed;
     public Float mAverageHeartRate;
     public Float mTotalHeartRate;
     public int mKcal;
 
     public RidingData() {
-        mStartRegdate = System.currentTimeMillis();
+        mStartRegdate = System.currentTimeMillis() + 5000;
         mTotalDistance = 0.0f;
         mAverageSpeed = 0.0f;
         mMaxSpeed = 0.0f;
-        mDetailSpeed = new ArrayList<>();
-
+        mDetailSpeed = new HashMap<>();
         mAverageHeartRate = 0.0f;
         mTotalHeartRate = 0.0f;
     }
 
-    public void addData(String speed, String distance) {
-        mDetailSpeed.add(Float.valueOf(speed));
-        mTotalDistance += Float.valueOf(distance);
+    public void addData(String speed, String totalDistance) {
+        mDetailSpeed.put(System.currentTimeMillis(), Float.valueOf(speed));
+        mTotalDistance = Float.valueOf(totalDistance);
     }
 
-    public void addData(String speed, String distance, String heartrate) {
-        addData(speed, distance);
+    public void addData(String speed, String totalDistance, String heartrate) {
+        addData(speed, totalDistance);
         mTotalHeartRate += Float.valueOf(heartrate);
     }
 
@@ -43,16 +42,18 @@ public class RidingData implements Serializable {
 
         int dataSize = mDetailSpeed.size();
 
-        // 최대 속도 / 평균속도 계산
-        Float totalSpeed = 0.0f;
-        for (Float val : mDetailSpeed) {
-            if (mMaxSpeed < val) mMaxSpeed = val;
-            totalSpeed += val;
-        }
+        /*
+                // 최대 속도 / 평균속도 계산
+                Float totalSpeed = 0.0f;
+                for (Float val : mDetailSpeed) {
+                    if (mMaxSpeed < val) mMaxSpeed = val;
+                    totalSpeed += val;
+                }
 
-        mAverageSpeed = totalSpeed / dataSize;
-        mAverageHeartRate = mTotalHeartRate / dataSize;
+                mAverageSpeed = totalSpeed / dataSize;
+                mAverageHeartRate = mTotalHeartRate / dataSize;
 
+        */
 
     }
 

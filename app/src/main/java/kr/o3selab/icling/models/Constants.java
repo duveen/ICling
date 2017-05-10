@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,6 +21,9 @@ public class Constants {
     // Firebase Reference
     public static String KAKAO_USER = "User/Kakao/";
     public static String GOOGLE_USER = "User/Google/";
+
+    // 데이터정보
+    public static DataSnapshot mTotalData = null;
 
     // 설정정보
     private static String sData = "ICling.db";
@@ -56,7 +60,6 @@ public class Constants {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User/" + user.mLoginType + "/" + user.mUUID);
         databaseReference.setValue(user);
     }
-
 
     // 픽셀 DP 제어
     public static int PixelToDp(Context context, int pixel) {
