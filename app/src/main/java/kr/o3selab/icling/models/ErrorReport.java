@@ -4,12 +4,9 @@ import android.os.Build;
 
 import java.io.Serializable;
 
-/**
- * Created by O3SE Lab on 2017-04-09.
- */
-
 public class ErrorReport implements Serializable {
 
+    public Long mRegdate;
     public User mUser;
     public String mModel;
     public String mManufacturer;
@@ -17,6 +14,7 @@ public class ErrorReport implements Serializable {
     public String mLogs;
 
     public ErrorReport(String logs) {
+        mRegdate = System.currentTimeMillis();
         mUser = Constants.user;
         mModel = Build.MODEL;
         mManufacturer = Build.MANUFACTURER;

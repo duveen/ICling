@@ -8,23 +8,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
+import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.fragment.record.RecordItemFragment;
-import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.models.RidingData;
+import kr.o3selab.icling.utils.DBHelper;
 
 public class RecordFragment extends BaseFragment {
 
@@ -32,7 +26,7 @@ public class RecordFragment extends BaseFragment {
     LinearLayout mItemListLayout;
 
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("hh:mm a");
+    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("a hh:mm");
 
     private LayoutInflater mInflater;
 
@@ -43,63 +37,40 @@ public class RecordFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         mInflater = inflater;
-
-        if (Constants.mTotalData == null)
-            FirebaseDatabase.getInstance().getReference("UserRidingData/" + Constants.user.mUserID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Constants.mTotalData = dataSnapshot;
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        getData();
+        initData();
 
         return view;
     }
 
-    private void getData() {
+    private void initData() {
+        DBHelper helper = DBHelper.getInstance(getContext());
+
+        final Vector<RidingData> datas = helper.getRidingData();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    if (Constants.mTotalData != null) break;
-
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException ignored) {
-
-                    }
-                }
-
                 int flag = 0;
-
-                List<DataSnapshot> lists = new LinkedList<>();
-                for (DataSnapshot snapshot : Constants.mTotalData.getChildren())
-                    lists.add(snapshot);
-
-                Collections.reverse(lists);
-
-                for (DataSnapshot snapshot : lists) {
+                for (final RidingData data : datas) {
                     final int iFlag = flag++;
-                    final RidingData data = snapshot.getValue(RidingData.class);
-
                     final View item = mInflater.inflate(R.layout.fragment_record_list_item, null);
 
+                    LinearLayout parent = (LinearLayout) item.findViewById(R.id.record_item);
+
                     TextView dateView = (TextView) item.findViewById(R.id.record_list_item_date);
-                    dateView.setText(mDateFormat.format(new Date(data.mStartRegdate)));
+                    dateView.setText(mDateFormat.format(new Date(data.mStartTime)));
 
                     TextView timeView = (TextView) item.findViewById(R.id.record_list_item_time);
-                    timeView.setText(mTimeFormat.format(new Date(data.mStartRegdate)));
+                    timeView.setText(mTimeFormat.format(new Date(data.mStartTime)));
+
+                    TextView dTimeView = (TextView) item.findViewById(R.id.record_list_item_d_time);
+                    RidingData.RTime rTime = data.getRidingTime();
+                    dTimeView.setText(rTime.toString());
 
                     TextView distanceView = (TextView) item.findViewById(R.id.record_list_item_d_distance);
-                    distanceView.setText(data.mTotalDistance.toString());
+                    distanceView.setText(String.format("%.2f", data.mTotalDistance));
 
-                    item.setOnClickListener(new View.OnClickListener() {
+                    parent.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             RecordItemFragment fragment = new RecordItemFragment();
@@ -110,6 +81,7 @@ public class RecordFragment extends BaseFragment {
                             activity.addFragment(fragment, true);
                         }
                     });
+                    parent.setEnabled(true);
 
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -120,6 +92,8 @@ public class RecordFragment extends BaseFragment {
                 }
             }
         }).start();
+
+
     }
 
     @Override

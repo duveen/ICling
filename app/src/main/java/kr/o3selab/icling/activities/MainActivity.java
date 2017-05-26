@@ -11,8 +11,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +30,8 @@ import kr.o3selab.icling.activities.fragment.HomeFragment;
 import kr.o3selab.icling.activities.fragment.RecordFragment;
 import kr.o3selab.icling.activities.fragment.SettingFragment;
 import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.models.RidingData;
+import kr.o3selab.icling.utils.DBHelper;
 import kr.o3selab.icling.utils.Debug;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
@@ -36,9 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
     @BindView(R.id.main_bottom_bar)
     BottomBar mBottomBar;
-
-    /*@Bind(R.id.main_chart)
-    LineChart mLineChart;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         mTopBar.setLayoutParams(params);
 
         mBottomBar.setOnTabSelectListener(this);
-        // initDataGraph();
+        Constants.synchronizedData(this);
     }
 
     @Override
@@ -132,59 +138,5 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         return mBackButton;
     }
 
-    /*public void initDataGraph() {
 
-        List<Entry> entries = new ArrayList<>();
-        RidingData ridingData = new RidingData();
-        int i = 0;
-        for (Float d : ridingData.mDetailSpeed) {
-            entries.add(new Entry(i++, d));
-        }
-
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
-        dataSet.setDrawCircles(false);
-        dataSet.setDrawValues(false);
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setDrawFilled(true);
-        if (Build.VERSION.SDK_INT > 23) {
-            dataSet.setFillColor(getResources().getColor(R.color.colorPrimaryDark, null));
-        } else {
-            dataSet.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-
-        //LineData lineData = new LineData(dataSet);
-
-        // 데이터 설정
-        //mLineChart.setData(lineData);
-
-        // 설명 해제
-        mLineChart.getDescription().setEnabled(false);
-
-        // 핀치 줌 해제
-        mLineChart.setPinchZoom(false);
-
-        // 조절 및 드래그 해제
-        mLineChart.setScaleEnabled(false);
-        mLineChart.setDragEnabled(false);
-
-        mLineChart.setTouchEnabled(false);
-        mLineChart.setDoubleTapToZoomEnabled(false);
-        mLineChart.setDrawGridBackground(false);
-
-        XAxis x = mLineChart.getXAxis();
-        x.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        x.setTextColor(Color.WHITE);
-
-        x.setDrawGridLines(false);
-        x.setDrawAxisLine(false);
-
-        mLineChart.getAxisLeft().setEnabled(false);
-        mLineChart.getAxisRight().setEnabled(false);
-
-        mLineChart.getLegend().setEnabled(false);
-
-        mLineChart.setNoDataText("최근 5일간의 기록이 없습니다.");
-
-        mLineChart.invalidate();
-    }*/
 }

@@ -20,6 +20,10 @@ public class User implements Serializable {
     public static String KAKAO = "Kakao";
     public static String GOOGLE = "Google";
 
+    public static int USER = 0;
+    public static int DONT_HAVE_DATA = 1;
+    public static int NOT_EQUAL_DEVICE = 2;
+
     public String mLoginType = null;
     public String mUserName = null;
     public String mUserID = null;

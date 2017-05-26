@@ -19,18 +19,21 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.loaddata.LoadDataActivity;
 import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.models.Constants;
 import kr.o3selab.icling.models.User;
+import kr.o3selab.icling.utils.DBHelper;
 import kr.o3selab.icling.utils.Debug;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -59,6 +62,8 @@ public class LoadingActivity extends AppCompatActivity {
                 .setRationaleMessage("설정 정보를 저장하기 위한 권한 입니다.")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
+
+        DBHelper.getInstance(this).remove();
     }
 
     @Override
@@ -112,24 +117,6 @@ public class LoadingActivity extends AppCompatActivity {
                 }
             } else {
                 Debug.d("LoginStatus:logout");
-
-                final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + GlobalApplication.getUUID());
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
-                        if (user != null) {
-                            user.mLoginStatus = false;
-                            databaseReference.setValue(user);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

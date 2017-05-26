@@ -6,8 +6,12 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import kr.o3selab.icling.utils.DBHelper;
 
 public class Constants {
 
@@ -23,7 +27,26 @@ public class Constants {
     public static String GOOGLE_USER = "User/Google/";
 
     // 데이터정보
-    public static DataSnapshot mTotalData = null;
+    public static void synchronizedData(final Context context) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UserRidingData/" + user.mUserID);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) return;
+                DBHelper helper = DBHelper.getInstance(context);
+
+                for (DataSnapshot value : dataSnapshot.getChildren()) {
+                    RidingData item = value.getValue(RidingData.class);
+                    if (!helper.findRidingData(item.mStartTime.toString())) helper.insert(item);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     // 설정정보
     private static String sData = "ICling.db";

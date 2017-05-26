@@ -25,31 +25,38 @@ public class Debug {
 
     // Error
     public static void e(String message) {
-        if (DEBUG) Log.e(TAG, buildMsg(message));
+        String msg = buildMsg(message);
+        if (DEBUG) Log.e(TAG, msg);
         sendErrorReportToFirebaseServer();
     }
 
     // Warning
     public static void w(String message) {
-        if (DEBUG) Log.w(TAG, buildMsg(message));
+        String msg = buildMsg(message);
+        if (DEBUG) Log.w(TAG, msg);
     }
 
     // Information
     public static void i(String message) {
-        if (DEBUG) Log.i(TAG, buildMsg(message));
+        String msg = buildMsg(message);
+        if (DEBUG) Log.i(TAG, msg);
     }
 
     // Debug
     public static void d(String message) {
-        if (DEBUG) Log.d(TAG, buildMsg(message));
+        String msg = buildMsg(message);
+        if (DEBUG) Log.d(TAG, msg);
     }
+
     public static void d(int value) {
-        if (DEBUG) Log.d(TAG, buildMsg(String.valueOf(value)));
+        String msg = buildMsg(String.valueOf(value));
+        if (DEBUG) Log.d(TAG, msg);
     }
 
     // Verbose
     public static void v(String message) {
-        if (DEBUG) Log.v(TAG, buildMsg(message));
+        String msg = buildMsg(message);
+        if (DEBUG) Log.v(TAG, msg);
     }
 
     private static String buildMsg(String message) {
