@@ -19,19 +19,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.loaddata.LoadDataActivity;
 import kr.o3selab.icling.common.GlobalApplication;
-import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.DBHelper;
 import kr.o3selab.icling.utils.Debug;

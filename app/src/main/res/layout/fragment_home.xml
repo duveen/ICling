@@ -72,7 +72,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray" />
 
-            <kr.o3selab.icling.utils.FontFitTextView
+            <kr.o3selab.icling.layout.FontFitTextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -131,7 +131,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray" />
 
-            <kr.o3selab.icling.utils.FontFitTextView
+            <kr.o3selab.icling.layout.FontFitTextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -190,7 +190,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray" />
 
-            <kr.o3selab.icling.utils.FontFitTextView
+            <kr.o3selab.icling.layout.FontFitTextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

@@ -1,4 +1,4 @@
-package kr.o3selab.icling.utils;
+package kr.o3selab.icling.layout;
 
 import android.content.Context;
 import android.graphics.Paint;

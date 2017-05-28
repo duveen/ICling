@@ -1,10 +1,8 @@
-package kr.o3selab.icling.activities.fragment;
+package kr.o3selab.icling.activities.fragment.home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import kr.o3selab.icling.activities.fragment.main.KcalFragment;
 
 public class HomeAdapter extends FragmentStatePagerAdapter {
 

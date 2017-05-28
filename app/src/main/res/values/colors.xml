@@ -11,4 +11,13 @@
     <color name="font">#ffffff</color>
     <color name="font_gray">#d3d7de</color>
     <color name="font_title">#6d7e99</color>
+
+    <color name="background_tab_pressed">#6633B5E5</color>
+
+    <color name="rank1">#faca57</color>
+    <color name="rank2">#d0cdc8</color>
+    <color name="rank3">#cf9e76</color>
+
+
+
 </resources>

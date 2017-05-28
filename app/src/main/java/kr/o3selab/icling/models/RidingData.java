@@ -74,29 +74,42 @@ public class RidingData implements Serializable {
 
 
     public static class RTime {
+
+        public static final int NORMAL = 0;
+        public static final int RECORD_ITEM = 1;
+
         public int h;
         public int m;
         public int s;
+        public int ms;
+        // m:s.ms
 
         public static RTime getTime(long distanceTime) {
             RTime r = new RTime();
-            distanceTime /= 1000;
-            r.h = (int) (distanceTime / 3600);
-            distanceTime %= 3600;
-            r.m = (int) (distanceTime / 60);
-            distanceTime %= 60;
-            r.s = (int) distanceTime;
+            r.h = (int) (distanceTime / 3600000);
+            distanceTime %= 3600000;
+            r.m = (int) (distanceTime / 60000);
+            distanceTime %= 60000;
+            r.s = (int) (distanceTime / 1000);
+            distanceTime %= 1000;
+            r.ms = (int) distanceTime;
             return r;
         }
 
         public static String format(int value) {
             return String.format("%02d", value);
+
         }
 
         @Override
         public String toString() {
-            return String.format("%02d", h) + ":" + String.format("%02d", m) + ":" + String.format("%02d", s);
+            return format(h) + ":" + format(m) + ":" + format(s);
         }
+
+        public String toStringWithMillisecond() {
+            return format(m) + ":" + format(s) + "." + String.format("%03d", ms);
+        }
+
     }
 
     public Long getmStartTime() {

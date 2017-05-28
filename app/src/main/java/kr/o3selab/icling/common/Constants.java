@@ -1,4 +1,4 @@
-package kr.o3selab.icling.models;
+package kr.o3selab.icling.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import kr.o3selab.icling.models.RidingData;
+import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.DBHelper;
 
 public class Constants {

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.R;
 
 public class BikeData extends Fragment {

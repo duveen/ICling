@@ -11,27 +11,19 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
-
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.fragment.AnalyticsFragment;
 import kr.o3selab.icling.activities.fragment.BaseFragment;
-import kr.o3selab.icling.activities.fragment.HomeFragment;
-import kr.o3selab.icling.activities.fragment.RecordFragment;
-import kr.o3selab.icling.activities.fragment.SettingFragment;
-import kr.o3selab.icling.models.Constants;
-import kr.o3selab.icling.models.RidingData;
-import kr.o3selab.icling.utils.DBHelper;
+import kr.o3selab.icling.activities.fragment.home.HomeFragment;
+import kr.o3selab.icling.activities.fragment.ranking.RankingFragment;
+import kr.o3selab.icling.activities.fragment.record.RecordFragment;
+import kr.o3selab.icling.activities.fragment.setting.SettingFragment;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.utils.Debug;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
@@ -80,6 +72,12 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
                 RecordFragment recordFragment = new RecordFragment();
                 recordFragment.setActivity(this);
                 addFragment(recordFragment);
+                return;
+
+            case R.id.tab_ranking:
+                RankingFragment rankingFragment = new RankingFragment();
+                rankingFragment.setActivity(this);
+                addFragment(rankingFragment);
                 return;
 
             case R.id.tab_analytics:

@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.fragment.BaseFragment;
-import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.models.User;
 
 public class ProfileFragment extends BaseFragment {

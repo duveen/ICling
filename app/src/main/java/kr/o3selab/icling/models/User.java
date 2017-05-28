@@ -13,6 +13,7 @@ import java.io.Serializable;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
 import kr.o3selab.icling.activities.loaddata.LoadDataActivity;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.common.GlobalApplication;
 
 public class User implements Serializable {
@@ -48,11 +49,6 @@ public class User implements Serializable {
         mUserName = name;
         mUserID = uid;
         mUserEmail = email;
-    }
-
-    public boolean isData() {
-        if (mHeight == null) return false;
-        else return true;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package kr.o3selab.icling.activities.fragment;
+package kr.o3selab.icling.activities.fragment.setting;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,19 +16,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Random;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.LoadingActivity;
-import kr.o3selab.icling.activities.fragment.setting.ProfileFragment;
+import kr.o3selab.icling.activities.fragment.BaseFragment;
 import kr.o3selab.icling.common.GlobalApplication;
-import kr.o3selab.icling.models.Constants;
-import kr.o3selab.icling.models.RidingData;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.models.User;
-import kr.o3selab.icling.utils.Debug;
 
 public class SettingFragment extends BaseFragment {
 

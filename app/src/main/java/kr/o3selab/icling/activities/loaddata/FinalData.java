@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
 import kr.o3selab.icling.common.GlobalApplication;
-import kr.o3selab.icling.models.Constants;
+import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.Debug;
 

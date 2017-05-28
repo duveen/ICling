@@ -1,4 +1,4 @@
-package kr.o3selab.icling.activities.fragment;
+package kr.o3selab.icling.activities.fragment.record;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +16,7 @@ import java.util.Vector;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
+import kr.o3selab.icling.activities.fragment.BaseFragment;
 import kr.o3selab.icling.activities.fragment.record.RecordItemFragment;
 import kr.o3selab.icling.models.RidingData;
 import kr.o3selab.icling.utils.DBHelper;

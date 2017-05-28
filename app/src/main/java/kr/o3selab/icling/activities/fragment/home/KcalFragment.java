@@ -1,4 +1,4 @@
-package kr.o3selab.icling.activities.fragment.main;
+package kr.o3selab.icling.activities.fragment.home;
 
 import android.graphics.Color;
 import android.os.Bundle;

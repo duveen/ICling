@@ -4,6 +4,8 @@ import android.os.Build;
 
 import java.io.Serializable;
 
+import kr.o3selab.icling.common.Constants;
+
 public class ErrorReport implements Serializable {
 
     public Long mRegdate;
