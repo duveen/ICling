@@ -1,9 +1,11 @@
 package kr.o3selab.icling.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import kr.o3selab.icling.activities.fragment.record.RecordFragment;
 import kr.o3selab.icling.activities.fragment.setting.SettingFragment;
 import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.utils.Debug;
+import kr.o3selab.icling.utils.SynchronizedData;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         mTopBar.setLayoutParams(params);
 
         mBottomBar.setOnTabSelectListener(this);
-        Constants.synchronizedData(this);
+        // SynchronizedData.sync(this);
     }
 
     @Override
@@ -136,5 +139,20 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         return mBackButton;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() != 0) super.onBackPressed();
+        else {
+            new AlertDialog.Builder(this)
+                    .setMessage("지금 프로그램을 종료하시겠습니까?")
+                    .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.exit(-1);
+                        }
+                    })
+                    .show();
+        }
+    }
 }

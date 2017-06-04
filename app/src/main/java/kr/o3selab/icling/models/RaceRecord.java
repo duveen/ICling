@@ -3,24 +3,24 @@ package kr.o3selab.icling.models;
 import android.support.annotation.NonNull;
 
 public class RaceRecord implements Comparable<RaceRecord> {
-    private String mAndroidId;
+    private String mUserId;
     private Double mTime;
 
     public RaceRecord() {
 
     }
 
-    public RaceRecord(String mAndroidId, Double mTime) {
-        this.mAndroidId = mAndroidId;
+    public RaceRecord(String mUserId, Double mTime) {
+        this.mUserId = mUserId;
         this.mTime = mTime;
     }
 
-    public String getmAndroidId() {
-        return mAndroidId;
+    public String getmUserId() {
+        return mUserId;
     }
 
-    public void setmAndroidId(String mAndroidId) {
-        this.mAndroidId = mAndroidId;
+    public void setmUserId(String mUserId) {
+        this.mUserId = mUserId;
     }
 
     public Double getmTime() {
@@ -33,12 +33,12 @@ public class RaceRecord implements Comparable<RaceRecord> {
 
     @Override
     public String toString() {
-        return mAndroidId + " " + mTime;
+        return mUserId + " " + mTime;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return mAndroidId.equals(((RaceRecord) obj).mAndroidId) && mTime.equals(((RaceRecord) obj).mTime);
+        return mUserId.equals(((RaceRecord) obj).mUserId) && mTime.equals(((RaceRecord) obj).mTime);
     }
 
     @Override

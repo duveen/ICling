@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +27,8 @@ import java.util.ArrayList;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.loaddata.LoadDataActivity;
-import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.common.Constants;
+import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.DBHelper;
 import kr.o3selab.icling.utils.Debug;
@@ -90,29 +89,20 @@ public class LoadingActivity extends AppCompatActivity {
             if (user != null) {
                 Debug.d("LoginStatus:login");
 
-                if (user.getProviders().contains("google.com")) {
-                    for (UserInfo info : user.getProviderData()) {
-                        if (!info.getProviderId().contains("google.com")) continue;
-
-                        String uuid = GlobalApplication.getUUID();
-                        if (uuid != null) {
-                            final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + uuid);
-                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    User user = dataSnapshot.getValue(User.class);
-                                    User.checkUserDevice(LoadingActivity.this, user, reference);
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    Toast.makeText(LoadingActivity.this, "서버 연결 오류 입니다. 프로그램을 종료합니다.", Toast.LENGTH_LONG).show();
-                                    LoadingActivity.this.finish();
-                                }
-                            });
-                        }
+                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User/" + user.getUid());
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        User.checkUserDevice(LoadingActivity.this, user, reference);
                     }
-                }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(LoadingActivity.this, "서버 연결 오류 입니다. 프로그램을 종료합니다.", Toast.LENGTH_LONG).show();
+                        LoadingActivity.this.finish();
+                    }
+                });
             } else {
                 Debug.d("LoginStatus:logout");
                 new Thread(new Runnable() {

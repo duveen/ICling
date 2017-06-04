@@ -8,10 +8,13 @@ public class HomeAdapter extends FragmentStatePagerAdapter {
 
     int mNumbOfTabs;
 
+    KcalFragment kcalFragment;
+
     public HomeAdapter(FragmentManager fm, int numbOfTabs) {
         super(fm);
 
         this.mNumbOfTabs = numbOfTabs;
+        kcalFragment = new KcalFragment();
     }
 
     @Override
@@ -19,7 +22,7 @@ public class HomeAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             default:
-                return new KcalFragment();
+                return kcalFragment;
         }
     }
 
@@ -27,5 +30,10 @@ public class HomeAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mNumbOfTabs;
     }
+
+    public void drawKcalData() {
+        kcalFragment.drawData();
+    }
+
 
 }

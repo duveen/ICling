@@ -31,9 +31,9 @@ public class RankItemLayout extends LinearLayout {
     @BindView(R.id.ranking_item_profile)
     CircleImageView profileImageView;
     @BindView(R.id.ranking_item_name)
-    TextView nameTextView;
+    FontFitTextView nameTextView;
     @BindView(R.id.ranking_item_time)
-    TextView timeTextView;
+    FontFitTextView timeTextView;
 
     Context mContext;
 
@@ -82,7 +82,7 @@ public class RankItemLayout extends LinearLayout {
         RidingData.RTime time = RidingData.RTime.getTime(recordTime);
         timeTextView.setText(time.toStringWithMillisecond());
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User/Google/" + raceRecord.getmAndroidId());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User/" + raceRecord.getmUserId());
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

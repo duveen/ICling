@@ -532,6 +532,7 @@
 
             <!--페이스-->
             <LinearLayout
+                android:id="@+id/record_item_detail_pace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

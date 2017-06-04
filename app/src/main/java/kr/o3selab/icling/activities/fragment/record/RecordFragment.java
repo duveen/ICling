@@ -2,13 +2,13 @@ package kr.o3selab.icling.activities.fragment.record;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -17,11 +17,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.fragment.BaseFragment;
-import kr.o3selab.icling.activities.fragment.record.RecordItemFragment;
 import kr.o3selab.icling.models.RidingData;
 import kr.o3selab.icling.utils.DBHelper;
 
 public class RecordFragment extends BaseFragment {
+
+    @BindView(R.id.record_parent)
+    LinearLayout mParentView;
 
     @BindView(R.id.record_list)
     LinearLayout mItemListLayout;
@@ -47,6 +49,21 @@ public class RecordFragment extends BaseFragment {
         DBHelper helper = DBHelper.getInstance(getContext());
 
         final Vector<RidingData> datas = helper.getRidingData();
+
+        if (datas.size() == 0) {
+            mParentView.removeAllViewsInLayout();
+
+            TextView textView = new TextView(getContext());
+            textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView.setTextSize(15);
+            textView.setText("주행기록이 존재하지 않습니다.");
+            textView.setTextColor(getResources().getColor(R.color.font_gray));
+            textView.setGravity(Gravity.CENTER);
+            mParentView.addView(textView);
+
+            return;
+        }
 
         new Thread(new Runnable() {
             @Override

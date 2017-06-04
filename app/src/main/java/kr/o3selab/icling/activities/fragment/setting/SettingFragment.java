@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +34,6 @@ public class SettingFragment extends BaseFragment {
 
         ButterKnife.bind(this, view);
 
-        // addRidingData();
         return view;
     }
 
@@ -51,67 +51,29 @@ public class SettingFragment extends BaseFragment {
         activity.addFragment(fragment, true);
     }
 
-    /*void addRidingData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RidingData ridingData = new RidingData();
-                ridingData.mStartTime = System.currentTimeMillis();
-
-                ridingData.mTotalDistance = new Random().nextFloat() * 40;
-                ridingData.mRestTime = 2000L;
-                ridingData.mAverageSpeed = new Random().nextFloat() * 40;
-                ridingData.mMaxSpeed = new Random().nextFloat() * 40;
-
-                ridingData.mDetailSpeed = new HashMap<>();
-                for (int i = 0; i < 20; i++) {
-                    ridingData.mDetailSpeed.put(String.valueOf(System.currentTimeMillis()), new Random().nextFloat());
-                    Debug.d(i);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                ridingData.mAverageHeartRate = new Random().nextFloat() * 120;
-                ridingData.mMaxHeartRate = new Random().nextFloat() * 120;
-
-                ridingData.mKcal = 123;
-                ridingData.mFinishTime = System.currentTimeMillis();
-
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UserRidingData/101964580841481179586");
-                reference.child(String.valueOf(ridingData.mStartTime)).setValue(ridingData);
-            }
-        }).start();
-
-    }*/
-
     @OnClick(R.id.setting_logout)
     void logout() {
         new AlertDialog.Builder(activity)
-                .setTitle("로그아웃 하시겠습니까?")
+                .setMessage("로그아웃 하시겠습니까?")
                 .setPositiveButton(R.string.default_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Init Firebase DB User Info
+                        User user = Constants.user;
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User/" + user.mUserID);
+                        user.mUUID = "";
+                        reference.setValue(Constants.user);
+
+                        // Logout Auth
                         FirebaseAuth.getInstance().signOut();
 
-                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER + GlobalApplication.getUUID());
-                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                User user = dataSnapshot.getValue(User.class);
-                                if (user != null) {
-                                    user.mLoginStatus = false;
-                                    databaseReference.setValue(user);
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                        // Clear Static Info
+                        Constants.user = null;
 
-                            }
-                        });
+                        // Clear sharedPreference
+                        Constants.getEditor(getContext()).clear().apply();
 
+                        // Move Activity
                         startActivity(new Intent(activity, LoadingActivity.class));
                         activity.finish();
                     }

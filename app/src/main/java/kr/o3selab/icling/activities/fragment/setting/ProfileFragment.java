@@ -5,8 +5,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +26,27 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.setting_profile_imageView)
     CircleImageView profileImageView;
+    @BindView(R.id.setting_profile_login)
+    TextView loginView;
+    @BindView(R.id.setting_profile_name)
+    TextView nameView;
+    @BindView(R.id.setting_profile_email)
+    TextView emailView;
+    @BindView(R.id.setting_profile_height)
+    TextView heightView;
+    @BindView(R.id.setting_profile_weight)
+    TextView weightView;
+    @BindView(R.id.setting_profile_age)
+    TextView ageView;
+    @BindView(R.id.setting_profile_sex)
+    TextView sexView;
+    @BindView(R.id.setting_profile_radius)
+    TextView radiusView;
+    @BindView(R.id.setting_profile_regdate)
+    TextView regdateView;
+
+    @BindView(R.id.setting_profile_unregister)
+    View unregisterButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,7 +55,18 @@ public class ProfileFragment extends BaseFragment {
         TAG = "ProfileFragment";
 
         User user = Constants.user;
-        Picasso.with(activity).load(user.mUserProfileImage).into(profileImageView);
+        if (user.mUserProfileImage != null)
+            Picasso.with(activity).load(user.mUserProfileImage).into(profileImageView);
+        loginView.setText(user.mLoginType);
+        nameView.setText(user.mUserName);
+        emailView.setText(user.mUserEmail);
+        heightView.setText(String.valueOf(user.mHeight));
+        weightView.setText(String.valueOf(user.mWeight));
+        ageView.setText(String.valueOf(user.mAge));
+        if (user.mSex == 0) sexView.setText("남자");
+        else sexView.setText("여자");
+        radiusView.setText(String.valueOf(user.mRadius));
+        regdateView.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(user.mRegdate)));
 
         return view;
     }

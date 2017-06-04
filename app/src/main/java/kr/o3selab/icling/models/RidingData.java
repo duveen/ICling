@@ -22,8 +22,10 @@ public class RidingData implements Serializable {
 
     public Integer mAverageHeartRate;
     public Integer mMaxHeartRate;
+    public HashMap<String, Integer> mDetailHeartRate;
 
     public int mKcal;
+    public HashMap<String, Integer> mDetailKcal;
 
     public RidingData() {
 
@@ -43,11 +45,13 @@ public class RidingData implements Serializable {
 
     public String getAveragePace() {
         RTime pace = RTime.getTime((long) (3600000L / mAverageSpeed));
+        if (mAverageSpeed == 0) return "00'00\"";
         return RTime.format(pace.m) + "'" + RTime.format(pace.s) + "\"";
     }
 
     public String getMaxPace() {
         RTime pace = RTime.getTime((long) (3600000L / mMaxSpeed));
+        if (mMaxSpeed == 0) return "00'00\"";
         return RTime.format(pace.m) + "'" + RTime.format(pace.s) + "\"";
     }
 
@@ -75,9 +79,7 @@ public class RidingData implements Serializable {
 
     public static class RTime {
 
-        public static final int NORMAL = 0;
-        public static final int RECORD_ITEM = 1;
-
+        public long time;
         public int h;
         public int m;
         public int s;
@@ -86,6 +88,7 @@ public class RidingData implements Serializable {
 
         public static RTime getTime(long distanceTime) {
             RTime r = new RTime();
+            r.time = distanceTime;
             r.h = (int) (distanceTime / 3600000);
             distanceTime %= 3600000;
             r.m = (int) (distanceTime / 60000);
@@ -98,7 +101,6 @@ public class RidingData implements Serializable {
 
         public static String format(int value) {
             return String.format("%02d", value);
-
         }
 
         @Override
@@ -110,85 +112,5 @@ public class RidingData implements Serializable {
             return format(m) + ":" + format(s) + "." + String.format("%03d", ms);
         }
 
-    }
-
-    public Long getmStartTime() {
-        return mStartTime;
-    }
-
-    public void setmStartTime(long mStartTime) {
-        this.mStartTime = mStartTime;
-    }
-
-    public Long getmRestTime() {
-        return mRestTime;
-    }
-
-    public void setmRestTime(long mRestTime) {
-        this.mRestTime = mRestTime;
-    }
-
-    public Long getmFinishTime() {
-        return mFinishTime;
-    }
-
-    public void setmFinishTime(long mFinishTime) {
-        this.mFinishTime = mFinishTime;
-    }
-
-    public Double getmTotalDistance() {
-        return mTotalDistance;
-    }
-
-    public void setmTotalDistance(double mTotalDistance) {
-        this.mTotalDistance = mTotalDistance;
-    }
-
-    public Double getmAverageSpeed() {
-        return mAverageSpeed;
-    }
-
-    public void setmAverageSpeed(double mAverageSpeed) {
-        this.mAverageSpeed = mAverageSpeed;
-    }
-
-    public Double getmMaxSpeed() {
-        return mMaxSpeed;
-    }
-
-    public void setmMaxSpeed(double mMaxSpeed) {
-        this.mMaxSpeed = mMaxSpeed;
-    }
-
-    public HashMap<String, Double> getmDetailSpeed() {
-        return mDetailSpeed;
-    }
-
-    public void setmDetailSpeed(HashMap<String, Double> mDetailSpeed) {
-        this.mDetailSpeed = mDetailSpeed;
-    }
-
-    public Integer getmAverageHeartRate() {
-        return mAverageHeartRate;
-    }
-
-    public void setmAverageHeartRate(int mAverageHeartRate) {
-        this.mAverageHeartRate = mAverageHeartRate;
-    }
-
-    public Integer getmMaxHeartRate() {
-        return mMaxHeartRate;
-    }
-
-    public void setmMaxHeartRate(int mMaxHeartRate) {
-        this.mMaxHeartRate = mMaxHeartRate;
-    }
-
-    public Integer getmKcal() {
-        return mKcal;
-    }
-
-    public void setmKcal(int mKcal) {
-        this.mKcal = mKcal;
     }
 }

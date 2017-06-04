@@ -21,10 +21,6 @@ public class User implements Serializable {
     public static String KAKAO = "Kakao";
     public static String GOOGLE = "Google";
 
-    public static int USER = 0;
-    public static int DONT_HAVE_DATA = 1;
-    public static int NOT_EQUAL_DEVICE = 2;
-
     public String mLoginType = null;
     public String mUserName = null;
     public String mUserID = null;
@@ -38,17 +34,19 @@ public class User implements Serializable {
     public Long mRegdate = null;
     public String mUUID = null;
     public Boolean mLoginStatus = null;
+    public Integer mWeekKcal = null;
 
     public User() {
         mLoginStatus = false;
     }
 
-    public User(String type, String name, String uid, String email) {
+    public User(String type, String name, String uid, String email, String profileImage) {
         super();
         mLoginType = type;
         mUserName = name;
         mUserID = uid;
         mUserEmail = email;
+        mUserProfileImage = profileImage;
     }
 
     @Override
@@ -62,13 +60,15 @@ public class User implements Serializable {
         return mLoginType + ":" + mUserEmail;
     }
 
-    public void setUserProfileImage(String url) {
-        this.mUserProfileImage = url;
-    }
-
     public static void checkUserDevice(final Activity activity, final User user, final DatabaseReference reference) {
         if (user != null && user.mUUID.equals(GlobalApplication.getUUID())) {
-            Constants.user = Constants.setLogin(user);
+            Constants.user = user;
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        } else if (user != null && user.mUUID.equals("")) {
+            user.mUUID = GlobalApplication.getUUID();
+            reference.setValue(user);
+            Constants.user = user;
             activity.startActivity(new Intent(activity, MainActivity.class));
             activity.finish();
         } else if (user == null) {
@@ -84,8 +84,7 @@ public class User implements Serializable {
                 public void onClick(DialogInterface dialog, int which) {
                     user.mUUID = GlobalApplication.getUUID();
                     reference.setValue(user);
-
-                    Constants.user = Constants.setLogin(user);
+                    Constants.user = user;
                     activity.startActivity(new Intent(activity, MainActivity.class));
                     activity.finish();
                 }

@@ -12,15 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import kr.o3selab.icling.R;
 import kr.o3selab.icling.activities.MainActivity;
-import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.common.Constants;
+import kr.o3selab.icling.common.GlobalApplication;
 import kr.o3selab.icling.models.User;
 import kr.o3selab.icling.utils.Debug;
 
@@ -68,24 +68,19 @@ public class FinalData extends Fragment {
             user.mRadius = sharedPreferences.getInt(Constants.BIKE_RADIUS, -1);
             user.mRegdate = System.currentTimeMillis();
             user.mUUID = GlobalApplication.getUUID();
-            user.mLoginStatus = true;
+            user.mLoginStatus = false;
 
             Constants.user = user;
 
-            DatabaseReference reference = null;
-            if (user.mLoginType.equals(User.GOOGLE)) {
-                reference = FirebaseDatabase.getInstance().getReference(Constants.GOOGLE_USER);
-            } else if (user.mLoginType.equals(User.KAKAO)) {
-                reference = FirebaseDatabase.getInstance().getReference(Constants.KAKAO_USER);
-            }
-
-            if (reference != null) {
-                reference
-                        .child(String.valueOf(user.mUUID))
-                        .setValue(user)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
+            reference
+                    .child(user.mUserID)
+                    .setValue(user)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // 회원가입 성공
                                 pd.dismiss();
                                 Intent intent = new Intent(getActivity(), MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -93,17 +88,15 @@ public class FinalData extends Fragment {
 
                                 startActivity(intent);
                                 getActivity().finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+                            } else {
+                                // 회원가입 실패
                                 pd.dismiss();
-                                Toast.makeText(getContext(), "데이터 저장에 실패했습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_LONG).show();
-                                Debug.e(e.getMessage());
+                                Toast.makeText(getContext(), "회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                if (task.getException() != null)
+                                    Debug.e(task.getException().getMessage());
                             }
-                        });
-            }
+                        }
+                    });
         }
     };
 }

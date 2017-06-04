@@ -67,6 +67,8 @@ public class RecordItemFragment extends BaseFragment {
     TextView detailAverageSpeedView;
     @BindView(R.id.record_item_detail_max_speed)
     TextView detailMaxSpeedView;
+    @BindView(R.id.record_item_detail_pace)
+    View detailPaceView;
     @BindView(R.id.record_item_detail_average_pace)
     TextView detailAveragePaceView;
     @BindView(R.id.record_item_detail_max_pace)
@@ -103,7 +105,7 @@ public class RecordItemFragment extends BaseFragment {
             minuteTextView.setVisibility(View.VISIBLE);
         }
 
-        if (totalTime.h == 0 && totalTime.s != 0) {
+        if (totalTime.h == 0) {
             secondView.setText(String.valueOf(totalTime.s));
             secondView.setVisibility(View.VISIBLE);
             secondTextView.setVisibility(View.VISIBLE);
@@ -113,48 +115,51 @@ public class RecordItemFragment extends BaseFragment {
         speedView.setText(String.format("%.2f", ridingData.mAverageSpeed));
 
         // 속도 그래프
-        List<Entry> entries = new ArrayList<>(ridingData.mDetailSpeed.keySet().size());
-        List<String> lists = new ArrayList<>(ridingData.mDetailSpeed.keySet());
-        Collections.sort(lists);
+        if (ridingData.mDetailSpeed != null) {
+            List<Entry> entries = new ArrayList<>(ridingData.mDetailSpeed.keySet().size());
+            List<String> lists = new ArrayList<>(ridingData.mDetailSpeed.keySet());
+            Collections.sort(lists);
 
-        for (String s : lists) {
-            Long time = (Long.parseLong(s) - ridingData.mStartTime) / 1000;
-            entries.add(new Entry(time.floatValue(), ridingData.mDetailSpeed.get(s).floatValue()));
+            for (String s : lists) {
+                Long time = (Long.parseLong(s) - ridingData.mStartTime) / 1000;
+                entries.add(new Entry(time.floatValue(), ridingData.mDetailSpeed.get(s).floatValue()));
+            }
+
+            LineDataSet dataSet = new LineDataSet(entries, "Label");
+            dataSet.setDrawCircles(false);
+            dataSet.setDrawValues(false);
+            dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            dataSet.setDrawFilled(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                dataSet.setFillColor(getResources().getColor(R.color.colorPrimary, null));
+            else dataSet.setFillColor(getResources().getColor(R.color.colorPrimary));
+
+            LineData lineData = new LineData(dataSet);
+
+            lineChart.setData(lineData);
+            lineChart.getDescription().setEnabled(false);
+            lineChart.setPinchZoom(false);
+
+            lineChart.setScaleEnabled(false);
+            lineChart.setDragEnabled(false);
+            lineChart.setTouchEnabled(false);
+            lineChart.setDoubleTapToZoomEnabled(false);
+            lineChart.setDrawGridBackground(false);
+
+            XAxis x = lineChart.getXAxis();
+            x.setEnabled(false);
+
+            /*x.setDrawGridLines(true);
+            x.setDrawAxisLine(false);*/
+
+            lineChart.getAxisLeft().setTextColor(Color.WHITE);
+            lineChart.getAxisRight().setEnabled(false);
+
+            lineChart.getLegend().setEnabled(false);
+            lineChart.invalidate();
+        } else {
+            lineChart.setVisibility(View.GONE);
         }
-
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
-        dataSet.setDrawCircles(false);
-        dataSet.setDrawValues(false);
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setDrawFilled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            dataSet.setFillColor(getResources().getColor(R.color.colorPrimary, null));
-        else dataSet.setFillColor(getResources().getColor(R.color.colorPrimary));
-
-        LineData lineData = new LineData(dataSet);
-
-
-        lineChart.setData(lineData);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.setPinchZoom(false);
-
-        lineChart.setScaleEnabled(false);
-        lineChart.setDragEnabled(false);
-        lineChart.setTouchEnabled(false);
-        lineChart.setDoubleTapToZoomEnabled(false);
-        lineChart.setDrawGridBackground(false);
-
-        XAxis x = lineChart.getXAxis();
-        x.setEnabled(false);
-
-        /*x.setDrawGridLines(true);
-        x.setDrawAxisLine(false);*/
-
-        lineChart.getAxisLeft().setTextColor(Color.WHITE);
-        lineChart.getAxisRight().setEnabled(false);
-
-        lineChart.getLegend().setEnabled(false);
-        lineChart.invalidate();
 
 
         // 세부 내용 설정
@@ -165,8 +170,11 @@ public class RecordItemFragment extends BaseFragment {
         detailMaxHeartView.setText(String.valueOf(ridingData.mMaxHeartRate));
         detailAverageSpeedView.setText(String.format("%.2f", ridingData.mAverageSpeed));
         detailMaxSpeedView.setText(String.format("%.2f", ridingData.mMaxSpeed));
-        detailAveragePaceView.setText(ridingData.getAveragePace());
-        detailMaxPaceView.setText(ridingData.getMaxPace());
+        if (ridingData.getAveragePace() != null) {
+            detailAveragePaceView.setText(ridingData.getAveragePace());
+            detailMaxPaceView.setText(ridingData.getMaxPace());
+        } else detailPaceView.setVisibility(View.GONE);
+
 
         return view;
     }

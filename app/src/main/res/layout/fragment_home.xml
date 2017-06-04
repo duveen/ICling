@@ -13,15 +13,14 @@
             android:id="@+id/content_main_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="68dp"
-            android:layout_marginTop="25dp" />
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp" />
 
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/content_main_indicator"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp" />
+            android:layout_height="30dp"
+            android:layout_gravity="bottom" />
 
     </FrameLayout>
 
@@ -70,15 +69,23 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray" />
+                android:background="@color/font_gray" />
+
+            <!--<FrameLayout
+                android:id="@+id/content_main_heart_rate"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center" />-->
 
             <kr.o3selab.icling.layout.FontFitTextView
+                android:id="@+id/content_main_heart_rate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="110"
+                android:text="Loading..."
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
@@ -129,15 +136,16 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray" />
+                android:background="@color/font_gray" />
 
             <kr.o3selab.icling.layout.FontFitTextView
+                android:id="@+id/content_main_total_time"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="1.1"
+                android:text="Loading..."
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
@@ -188,15 +196,16 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray" />
+                android:background="@color/font_gray" />
 
             <kr.o3selab.icling.layout.FontFitTextView
+                android:id="@+id/content_main_total_distance"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="24.2"
+                android:text="Loading..."
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
