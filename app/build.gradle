@@ -41,6 +41,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'gun0912.ted:tedpermission:1.0.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
 

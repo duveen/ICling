@@ -67,6 +67,8 @@ public class FinalData extends Fragment {
             user.mSex = sharedPreferences.getInt(Constants.USER_SEX, -1);
             user.mRadius = sharedPreferences.getInt(Constants.BIKE_RADIUS, -1);
             user.mRegdate = System.currentTimeMillis();
+            user.mWeekKcal = 5000;
+            user.mWeekDistance = 100;
             user.mUUID = GlobalApplication.getUUID();
             user.mLoginStatus = false;
 

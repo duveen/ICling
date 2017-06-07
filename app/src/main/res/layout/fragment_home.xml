@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDarkBackground"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -62,7 +62,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Heart Rate"
-                    android:textColor="@color/font_gray" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -105,7 +105,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDarkBackground"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -129,7 +129,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Total Time"
-                    android:textColor="@color/font_gray" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -165,7 +165,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDarkBackground"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -189,7 +189,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Total Distance"
-                    android:textColor="@color/font_gray" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

@@ -35,6 +35,7 @@ public class User implements Serializable {
     public String mUUID = null;
     public Boolean mLoginStatus = null;
     public Integer mWeekKcal = null;
+    public Integer mWeekDistance = null;
 
     public User() {
         mLoginStatus = false;

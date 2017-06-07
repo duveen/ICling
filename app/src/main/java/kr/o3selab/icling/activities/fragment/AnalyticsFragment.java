@@ -17,4 +17,10 @@ public class AnalyticsFragment extends BaseFragment {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setTitle("주행분석");
+    }
 }

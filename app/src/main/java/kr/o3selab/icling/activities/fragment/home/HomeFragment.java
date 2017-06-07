@@ -33,7 +33,6 @@ public class HomeFragment extends BaseFragment implements HomeDataListener {
     @BindView(R.id.content_main_total_distance)
     FontFitTextView totalDistanceView;
 
-    SyncThread syncThread;
     HomeAdapter mAdapter;
 
     static final String MHR = "MHR";
@@ -46,7 +45,7 @@ public class HomeFragment extends BaseFragment implements HomeDataListener {
 
         ButterKnife.bind(this, view);
 
-        mAdapter = new HomeAdapter(getFragmentManager(), 1);
+        mAdapter = new HomeAdapter(getFragmentManager(), 2);
 
         viewPager.setAdapter(mAdapter);
         indicator.setViewPager(viewPager);
@@ -66,10 +65,7 @@ public class HomeFragment extends BaseFragment implements HomeDataListener {
         super.onResume();
 
         activity.setTitle("HOME");
-        if (syncThread == null) {
-            syncThread = new SyncThread();
-            syncThread.start();
-        }
+        SynchronizedData.getInstance().addHomeDataListener(this).sync(getContext());
     }
 
     public void drawData(int hr, long tt, double td) {
@@ -78,8 +74,8 @@ public class HomeFragment extends BaseFragment implements HomeDataListener {
         String t = String.valueOf(rTime.h);
         if (rTime.h < 10) t += String.format("%.2f", rTime.m / 60.0).substring(1, 4);
         else t += String.format("%.1f", rTime.m / 60.0).substring(1, 3);
-        heartRateView.setText(String.valueOf(hr));
 
+        heartRateView.setText(String.valueOf(hr));
         totalTimeView.setText(t);
         totalDistanceView.setText(String.format("%.2f", td));
     }
@@ -87,53 +83,17 @@ public class HomeFragment extends BaseFragment implements HomeDataListener {
     @Override
     public void onPause() {
         super.onPause();
-        if (syncThread != null) syncThread.interrupt();
-    }
-
-    class SyncThread extends Thread {
-
-        boolean isInterrupt = false;
-
-        @Override
-        public void run() {
-            while (!isInterrupt) {
-                if (SynchronizedData.syncFlag) {
-                    SynchronizedData.setListener(HomeFragment.this);
-                    SynchronizedData.sync(getContext());
-                    break;
-                }
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    interrupt();
-                }
-            }
-
-            syncThread = null;
-        }
-
-        @Override
-        public void interrupt() {
-            isInterrupt = true;
-        }
+        SynchronizedData.getInstance().removeHomeDataListener();
     }
 
     @Override
     public void onSyncHomeData(final int hr, final long tt, final double td) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences.Editor editor = Constants.getEditor(getContext());
-                editor.putInt(MHR, hr);
-                editor.putLong(MTT, tt);
-                editor.putFloat(MTD, (float) td);
-                editor.apply();
+        SharedPreferences.Editor editor = Constants.getEditor(getContext());
+        editor.putInt(MHR, hr);
+        editor.putLong(MTT, tt);
+        editor.putFloat(MTD, (float) td);
+        editor.apply();
 
-                drawData(hr, tt, td);
-
-                mAdapter.drawKcalData();
-            }
-        });
+        drawData(hr, tt, td);
     }
 }

@@ -27,7 +27,6 @@ import kr.o3selab.icling.activities.fragment.record.RecordFragment;
 import kr.o3selab.icling.activities.fragment.setting.SettingFragment;
 import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.utils.Debug;
-import kr.o3selab.icling.utils.SynchronizedData;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
 
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         ButterKnife.bind(this);
 
         Debug.d("MainActivity onCreate");
-        Debug.d("User = " + Constants.user.toString());
+        if (Constants.user != null) Debug.d("User = " + Constants.user.toString());
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Constants.DpToPixel(this, 56));
         params.setMargins(0, getStatusBarHeight(), 0, 0);
@@ -149,7 +148,9 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
                     .setPositiveButton("네", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.exit(-1);
+                            MainActivity.this.finishAffinity();
+                            System.runFinalization();
+                            System.exit(0);
                         }
                     })
                     .show();
