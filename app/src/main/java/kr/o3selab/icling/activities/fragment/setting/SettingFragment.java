@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.o3selab.icling.R;
@@ -24,8 +25,12 @@ import kr.o3selab.icling.activities.LoadingActivity;
 import kr.o3selab.icling.activities.fragment.BaseFragment;
 import kr.o3selab.icling.common.Constants;
 import kr.o3selab.icling.models.User;
+import kr.o3selab.icling.utils.SynchronizedData;
 
 public class SettingFragment extends BaseFragment {
+
+    @BindView(R.id.setting_version_text)
+    TextView versionView;
 
     private AlertDialog bikeRadiusSettingDialog;
     private AlertDialog kcalSettingDialog;
@@ -43,6 +48,7 @@ public class SettingFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         activity.setTitle("설정");
+        versionView.setText(String.valueOf(Constants.APP_VERSION));
     }
 
     @OnClick(R.id.setting_profile)
@@ -68,6 +74,9 @@ public class SettingFragment extends BaseFragment {
 
                         // Logout Auth
                         FirebaseAuth.getInstance().signOut();
+
+                        // Remove Instance SynchronizedData
+                        SynchronizedData.removeInstance();
 
                         // Clear Static Info
                         Constants.user = null;

@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         mTopBar.setLayoutParams(params);
 
         mBottomBar.setOnTabSelectListener(this);
-        // SynchronizedData.sync(this);
     }
 
     @Override

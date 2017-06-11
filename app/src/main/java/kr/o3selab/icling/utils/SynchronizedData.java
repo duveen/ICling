@@ -35,6 +35,10 @@ public class SynchronizedData {
         return me;
     }
 
+    public static void removeInstance() {
+        if (me != null) me = null;
+    }
+
     public SynchronizedData addHomeDataListener(HomeDataListener l) {
         me.homeDataListener = l;
         return me;

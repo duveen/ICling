@@ -13,6 +13,14 @@ import kr.o3selab.icling.models.RidingData;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static volatile DBHelper instance;
+    private static final String TEXT_TYPE = " TEXT";
+    private static final String BLOB_TYPE = " BLOB";
+    private static final String COMMA_SEP = ",";
+    private static final String SQL_CREATE_TABLE =
+            "CREATE TABLE " + RiderEntry.TABLE_NAME + " (" +
+                    RiderEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
+                    RiderEntry.COLUMN_REGDATE + TEXT_TYPE + COMMA_SEP +
+                    RiderEntry.COLUMN_ITEM + BLOB_TYPE + " )";
 
     public static DBHelper getInstance(Context context) {
         if (instance == null) instance = new DBHelper(context, "RidingData.db", null, 1);
@@ -25,8 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE riding (_id INTEGER PRIMARY KEY AUTOINCREMENT, regdate TEXT, item BLOB);";
-        db.execSQL(sql);
+        db.execSQL(SQL_CREATE_TABLE);
     }
 
     @Override
@@ -47,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        String sql = "INSERT INTO riding VALUES(?,?,?)";
+        String sql = "INSERT INTO " + RiderEntry.TABLE_NAME + " VALUES(?,?,?)";
         SQLiteStatement insertStmt = db.compileStatement(sql);
         insertStmt.clearBindings();
         insertStmt.bindNull(1);
@@ -61,14 +68,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void remove() {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM riding;");
+        db.execSQL("DELETE FROM " + RiderEntry.TABLE_NAME);
     }
 
     public boolean findRidingData(String time) {
         boolean flag = false;
 
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM riding WHERE regdate = '" + time + "';";
+        String sql = "SELECT * FROM " + RiderEntry.TABLE_NAME + " WHERE " + RiderEntry.COLUMN_REGDATE + " = '" + time + "';";
 
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) flag = time.equals(cursor.getString(1));
@@ -82,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Vector<RidingData> datas = new Vector<>();
 
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM riding order by regdate desc";
+        String sql = "SELECT * FROM " + RiderEntry.TABLE_NAME + " order by " + RiderEntry.COLUMN_REGDATE + " desc";
         Cursor cursor = db.rawQuery(sql, null);
 
         while (cursor.moveToNext()) {
@@ -96,5 +103,12 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return datas;
+    }
+
+    class RiderEntry {
+        public static final String TABLE_NAME = "riding";
+        public static final String _ID = "_id";
+        public static final String COLUMN_REGDATE = "regdate";
+        public static final String COLUMN_ITEM = "item";
     }
 }

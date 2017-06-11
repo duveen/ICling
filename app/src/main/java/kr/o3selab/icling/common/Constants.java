@@ -10,8 +10,8 @@ import kr.o3selab.icling.models.User;
 public class Constants {
 
     // 어플리케이션 정보
-    private static String APP_NAME = "ICling";
-    private static double APP_VERSION = 1.0;
+    public static String APP_NAME = "ICling";
+    public static double APP_VERSION = 1.0;
 
     // 사용자 정보
     public static User user;
