@@ -85,7 +85,7 @@ public class DistanceFragment extends BaseFragment implements HomeDistanceListen
 
         SharedPreferences sharedPreferences = Constants.getSharedPreferences(getContext());
         Float totalKcal = sharedPreferences.getFloat(TOTAL_DISTANCE, 0.0f);
-        mTotalDistanceView.setText(totalKcal.toString());
+        mTotalDistanceView.setText(String.format("%.2f", totalKcal));
     }
 
     private PieData getUserData() {
